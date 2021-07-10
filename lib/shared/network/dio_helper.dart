@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+
 
 
 
 class DioHelper {
-  static Dio dio;
+static late   Dio dio;
 
   static init()
   {
@@ -18,17 +18,17 @@ class DioHelper {
 
   static Future<Response> getData(
       {
-        String url,
-        Map<String,dynamic>query
+      required  String url,
+        Map<String,dynamic>?query
       }
       )async
   {
-   return await dio.get(
+   return await  dio.get(
        url,
        queryParameters: query,
      options: Options(
          followRedirects: false,
-         validateStatus: (status) { return status < 500; }
+         validateStatus: (status) { return status !< 500; }
      ),
    );
   }

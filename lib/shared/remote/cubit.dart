@@ -8,10 +8,9 @@ import 'package:shop_app/shared/remote/state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(InitialWeatherState());
+ static  WeatherCubit get(context) => BlocProvider.of(context);
 
- static WeatherCubit get(context) => BlocProvider.of(context);
-
-   Position position;
+  Position ?position;
 
   String apiKey='681ff1cf05d1dd1e0c408c6d26368bc6';
 
@@ -29,13 +28,13 @@ Future <void> getCurrentLocation() async{
 
     emit(LoadingGetDataFromApi());
     if(data.length==0) {
-      if(position!=null)
+   if(position!=null)
         DioHelper.getData(
           url: "/data/2.5/find",
           query:
           {
-            'lat': position.latitude  ,
-            'lon': position.longitude,
+            'lat': position!.latitude  ,
+            'lon': position!.longitude,
             'cnt': 15,
             'appid': apiKey
           }).then((value) {
